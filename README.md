@@ -1,210 +1,152 @@
-# DGit - Design File Version Control System
+# DGit CLI
 
-<div align="center">
+디자인 파일 전용 버전 관리 시스템의 핵심 엔진
 
-![DGit Logo](https://img.shields.io/badge/DGit-Design%20Git-blue?style=for-the-badge&logo=git)
+## 개요
 
-**Intelligent version control for design files** 🎨
+DGit CLI는 디자인 파일(.psd, .ai, .sketch, .fig 등)을 위해 특별히 설계된 버전 관리 시스템입니다. 기존 Git의 한계를 극복하고, 대용량 바이너리 디자인 파일을 위한 지능적인 압축과 메타데이터 추적을 제공합니다.
 
-[![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat&logo=go)](https://golang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](LICENSE)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat)](https://github.com)
+## 주요 기능
 
-</div>
+- **성능**: 대용량 디자인 파일 커밋이 225배 빠름
+- **압축**: 고급 압축으로 최대 88% 저장공간 절약  
+- **디자인 인식**: 레이어 수, 크기, 색상 모드 등 의미있는 변경사항 추적
+- **사용자 경험**: 디자이너 친화적 인터페이스와 시각적 피드백
 
-## 🎯 Project Overview
+### 지능적 압축 시스템
 
-**DGit** is a specialized version control system designed for design files (.psd, .ai, .sketch, .fig, etc.). It addresses the limitations of traditional Git when working with large binary design files through intelligent compression and metadata tracking.
-
-### 💡 Key Problems Solved
-
-- **Performance**: Significantly faster commits for large design files
-- **Storage Efficiency**: Advanced compression reduces storage requirements by up to 88%
-- **Design-Aware**: Tracks meaningful changes like layer count, dimensions, and color modes
-- **User Experience**: Designer-friendly interface with visual feedback
-
-## ⚡ Core Features
-
-### 🚀 Smart Compression System
 ```
-User Action → Fast Compression → Immediate Response
-              ↓
-         Background Optimization (when idle)
-              ↓
-         Long-term Storage (automated)
+사용자 작업 → 빠른 압축 → 즉시 응답
+           ↓
+      백그라운드 최적화 (유휴 시간)
+           ↓
+      장기 저장소 (자동화)
 ```
 
-### 🎨 Design File Intelligence
+### 디자인 파일 인식
+
 ```bash
-📝 Status Check:
-🔄 modified: logo.psd
-   📐 Dimensions: 1920×1080 → 2560×1440
-   🎨 Layers: 57 → 59 (+2)
-   🎯 Color Mode: RGB → CMYK
-   💾 File Size: 56MB → 61MB
+📝 상태 확인:
+🔄 수정됨: logo.psd
+📐 크기: 1920×1080 → 2560×1440
+🎨 레이어: 57 → 59 (+2)
+🎯 색상 모드: RGB → CMYK
+💾 파일 크기: 56MB → 61MB
 ```
 
-### 🔍 Metadata Tracking
-DGit understands your design files and tracks meaningful changes:
-- Layer structure modifications
-- Canvas size adjustments  
-- Color space conversions
-- Version compatibility
+## 설치 방법
 
-## 📊 Performance Improvements
+### 필요 사항
+- Go 1.21 이상
+- 명령줄 접근 권한
 
-### Speed Comparison (56MB PSD file)
+### 빌드 및 설치
 
-| Operation | Traditional Git | DGit | Improvement |
-|-----------|----------------|------|-------------|
-| Commit | 45 seconds | 0.2 seconds | 225x faster |
-| Status Check | 3 seconds | Instant | Real-time |
-| File Restore | 15 seconds | 0.1 seconds | 150x faster |
-
-### Storage Efficiency
-```
-Traditional approach: 560MB (10 versions × 56MB each)
-DGit smart compression: 190MB (66% space savings)
-```
-
-## 🛠️ Installation
-
-### Prerequisites
-- Go 1.21 or higher installed
-- Command line access
-
-### Build from Source
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/dgit.git
-cd dgit
+# 저장소 복제
+git clone https://github.com/3pxTeam/DGIT-CLI.git
+cd DGIT-CLI
 
-# Build the application
+# 애플리케이션 빌드
 go build -o dgit
 
-# Optional: Install globally
+# 전역 설치 (선택사항)
 sudo mv dgit /usr/local/bin/
 ```
 
-### Verify Installation
+### 설치 확인
+
 ```bash
 dgit --help
 ```
 
-## 🚀 Quick Start Guide
+## 사용법
 
-### 1. Initialize a DGit Repository
+### 저장소 초기화
+
 ```bash
-# In your design project folder
+# 현재 디자인 프로젝트 폴더에서
 dgit init
 
-# Or specify a directory
+# 또는 특정 디렉토리 지정
 dgit init /path/to/project
 ```
 
-### 2. Scan for Design Files
-```bash
-# See what design files DGit can manage
-dgit scan .
-```
+### 파일 스캔 및 추가
 
-### 3. Add Files to Staging
 ```bash
-# Add specific files
+# DGit이 관리할 수 있는 디자인 파일 확인
+dgit scan .
+
+# 특정 파일 추가
 dgit add logo.psd banner.ai
 
-# Add all design files in current directory
+# 현재 디렉토리의 모든 디자인 파일 추가
 dgit add .
 
-# Add files by pattern
+# 패턴으로 파일 추가
 dgit add *.psd
 ```
 
-### 4. Create Your First Commit
+### 커밋 생성
+
 ```bash
-dgit commit -m "Initial design files"
+dgit commit -m "초기 디자인 파일"
 ```
 
-Example output:
-```bash
-🎨 Creating commit with 2 design files...
-📊 Analyzing file metadata...
-📦 Applying compression...
-
-✨ Commit created: a1b2c3d4
-📝 Initial design files
-🎨 Files committed:
-   🔵 logo.psd (12 layers, 1920×1080, RGB)
-   🟠 banner.ai (8 layers, 1200×800, CMYK)
+예제 출력:
+```
+🎨 2개의 디자인 파일로 커밋 생성 중...
+📊 파일 메타데이터 분석 중...
+📦 압축 적용 중...
+✨ 커밋 생성됨: a1b2c3d4
+📝 초기 디자인 파일
+🎨 커밋된 파일:
+🔵 logo.psd (12 레이어, 1920×1080, RGB)
+🟠 banner.ai (8 레이어, 1200×800, CMYK)
 ```
 
-### 5. Check Repository Status
+### 상태 확인 및 히스토리
+
 ```bash
+# 현재 상태 확인
 dgit status
-```
 
-### 6. View Commit History
-```bash
+# 커밋 히스토리 보기
 dgit log
 ```
 
-### 7. Restore Previous Versions
+### 파일 복원
+
 ```bash
-# Restore specific file from a version
+# 특정 버전에서 파일 복원
 dgit restore v2 logo.psd
 
-# Restore all files from a version
+# 특정 버전의 모든 파일 복원
 dgit restore v1
 ```
 
-## 📁 Project Architecture
+## 지원 파일 형식
 
-```
-dgit/
-├── main.go                      # Application entry point
-├── cmd/                         # Command line interface
-│   ├── initCmd.go              # Repository initialization
-│   ├── addCmd.go               # File staging
-│   ├── commitCmd.go            # Version creation
-│   ├── statusCmd.go            # Repository status
-│   ├── logCmd.go               # History viewing
-│   ├── restoreCmd.go           # File restoration
-│   └── scanCmd.go              # File discovery
-└── internal/                    # Core business logic
-    ├── init/                   # Repository setup
-    ├── staging/                # File staging management
-    ├── commit/                 # Compression and versioning
-    ├── log/                    # History tracking
-    ├── restore/                # File restoration
-    ├── status/                 # Change detection
-    └── scanner/                # File analysis
-        ├── photoshop/          # PSD file parser
-        └── illustrator/        # AI file parser
-```
+### 완전 지원 (메타데이터 추출 포함)
+- ✅ **Adobe Photoshop** (.psd) - 레이어, 크기, 색상 모드, 비트 깊이
+- ✅ **Adobe Illustrator** (.ai) - 아트보드, 레이어, 벡터 콘텐츠, 색상 공간
 
-## 🎨 Supported File Formats
+### 기본 지원 (파일 추적 및 버전 관리)
+- 🔶 **Sketch** (.sketch)
+- 🔶 **Figma** (.fig) 
+- 🔶 **Adobe XD** (.xd)
+- 🔶 **Affinity Designer** (.afdesign)
+- 🔶 **Blender** (.blend)
 
-### Full Support (with metadata extraction)
-- ✅ **Adobe Photoshop (.psd)** - Layers, dimensions, color mode, bit depth
-- ✅ **Adobe Illustrator (.ai)** - Artboards, layers, vector content, color space
+### 향후 지원 예정
+- Sketch: 심볼 라이브러리, 아트보드 분석
+- Figma: 컴포넌트 시스템, 디자인 토큰
+- Adobe XD: 프로토타입 플로우, 컴포넌트 상태
 
-### Basic Support (file versioning)
-- 🔶 **Sketch (.sketch)** - File tracking and versioning
-- 🔶 **Figma (.fig)** - File tracking and versioning  
-- 🔶 **Adobe XD (.xd)** - Basic file management
-- 🔶 **Affinity Designer (.afdesign)** - File versioning
-- 🔶 **Blender (.blend)** - 3D file versioning
+## 설정
 
-### 📋 Planned Enhancements
-Enhanced metadata extraction coming soon for:
-- Sketch: Symbol libraries, artboard analysis
-- Figma: Component systems, design tokens
-- Adobe XD: Prototype flows, component states
-
-## 🔧 Configuration
-
-### Custom Settings
-Create `.dgit/config` to customize behavior:
+`.dgit/config` 파일을 생성하여 동작 방식을 커스터마이징할 수 있습니다:
 
 ```json
 {
@@ -223,98 +165,106 @@ Create `.dgit/config` to customize behavior:
 }
 ```
 
-### Command Reference
+## 명령어 참조
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `dgit init` | Initialize repository | `dgit init` |
-| `dgit scan` | Find design files | `dgit scan .` |
-| `dgit add` | Stage files | `dgit add *.psd` |
-| `dgit commit` | Create version | `dgit commit -m "message"` |
-| `dgit status` | Check changes | `dgit status` |
-| `dgit log` | View history | `dgit log` |
-| `dgit restore` | Restore files | `dgit restore v2 file.psd` |
+| 명령어 | 설명 | 예제 |
+|-------|------|------|
+| `dgit init` | 저장소 초기화 | `dgit init` |
+| `dgit scan` | 디자인 파일 찾기 | `dgit scan .` |
+| `dgit add` | 파일 스테이징 | `dgit add *.psd` |
+| `dgit commit` | 버전 생성 | `dgit commit -m "메시지"` |
+| `dgit status` | 변경사항 확인 | `dgit status` |
+| `dgit log` | 히스토리 보기 | `dgit log` |
+| `dgit restore` | 파일 복원 | `dgit restore v2 file.psd` |
 
-## 🧪 Testing
+## 성능 비교
 
-### Run the Test Suite
+| 작업 | 기존 Git | DGit | 개선 |
+|------|---------|------|------|
+| 커밋 | 45초 | 0.2초 | 225배 빠름 |
+| 상태 확인 | 3초 | 즉시 | 실시간 |
+| 파일 복원 | 15초 | 0.1초 | 150배 빠름 |
+
+### 저장공간 절약
+- **기존 방식**: 560MB (10개 버전 × 56MB 각각)
+- **DGit 스마트 압축**: 190MB (66% 공간 절약)
+
+## 시스템 요구사항
+
+- **운영체제**: macOS 10.14+, Linux, Windows 10+
+- **메모리**: 최소 4GB RAM
+- **저장공간**: 100MB 이상
+- **Go**: 1.21 이상 (빌드 시)
+
+## 개발
+
+### 테스트 실행
+
 ```bash
-# Execute all tests
+# 모든 테스트 실행
 go test ./...
 
-# Run with detailed output
+# 상세 출력으로 실행
 go test -v ./...
 
-# Test specific components
+# 특정 컴포넌트 테스트
 go test ./internal/commit/
 go test ./internal/scanner/
-```
 
-### Performance Benchmarks
-```bash
-# Run performance tests
+# 성능 테스트 실행
 go test -bench=. ./internal/commit/
 go test -bench=. ./internal/restore/
 ```
 
-## 🤝 Contributing
+### 프로젝트 구조
 
-We welcome contributions from the community!
+```
+dgit/
+├── main.go                 # 애플리케이션 진입점
+├── cmd/                    # 명령줄 인터페이스
+│   ├── initCmd.go         # 저장소 초기화
+│   ├── addCmd.go          # 파일 스테이징
+│   ├── commitCmd.go       # 버전 생성
+│   ├── statusCmd.go       # 저장소 상태
+│   ├── logCmd.go          # 히스토리 보기
+│   ├── restoreCmd.go      # 파일 복원
+│   └── scanCmd.go         # 파일 발견
+└── internal/              # 핵심 비즈니스 로직
+    ├── init/              # 저장소 설정
+    ├── staging/           # 파일 스테이징 관리
+    ├── commit/            # 압축 및 버전 관리
+    ├── log/               # 히스토리 추적
+    ├── restore/           # 파일 복원
+    ├── status/            # 변경사항 감지
+    └── scanner/           # 파일 분석
+        ├── photoshop/     # PSD 파일 파서
+        └── illustrator/   # AI 파일 파서
+```
 
-### Getting Started
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/yourusername/dgit.git`
-3. Create a feature branch: `git checkout -b new-feature`
-4. Make your changes and add tests
-5. Ensure tests pass: `go test ./...`
-6. Commit and push your changes
-7. Submit a pull request
+## 기여하기
 
-### Development Guidelines
-- Follow Go coding standards
-- Add tests for new functionality
-- Update documentation as needed
-- Keep commits focused and descriptive
+커뮤니티 기여를 환영합니다!
 
-## 📄 License
+### 기여 방법
+1. 저장소 포크
+2. 포크한 저장소 복제: `git clone https://github.com/yourusername/DGIT-CLI.git`
+3. 기능 브랜치 생성: `git checkout -b new-feature`
+4. 변경사항 구현 및 테스트 추가
+5. 테스트 통과 확인: `go test ./...`
+6. 변경사항 커밋 및 푸시
+7. Pull Request 제출
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+### 기여 가이드라인
+- Go 코딩 표준 준수
+- 새로운 기능에 대한 테스트 추가
+- 필요시 문서 업데이트
+- 커밋은 집중적이고 설명적으로 작성
 
-## 🏆 Project Recognition
+## 라이선스
 
-- **University Competition 2025** - Innovation in Developer Tools
-- **Technical Achievement** - Significant performance improvements for design workflows
-- **User Experience** - Designer-focused interface design
+MIT License
 
-## 📞 Contact & Support
+## 관련 프로젝트
 
-- **Development Team**: 3px
-- **Project Repository**: [GitHub](https://github.com/your-username/dgit)
-- **Issues & Suggestions**: [GitHub Issues](https://github.com/your-username/dgit/issues)
-
-## 🗺️ Development Roadmap
-
-### Near Term (1-2 months)
-- [ ] Enhanced Sketch and Figma file support
-- [ ] Improved compression algorithms
-- [ ] Performance optimizations
-
-### Medium Term (3-6 months)
-- [ ] Cross-platform GUI application
-- [ ] Team collaboration features
-- [ ] Plugin system for design tools
-
-### Long Term (6+ months)
-- [ ] Cloud synchronization service
-- [ ] Advanced analytics and insights
-- [ ] Enterprise features and support
-
----
-
-<div align="center">
-
-**DGit - Version Control, Designed for Designers** 
-
-*Bringing intelligent version control to creative workflows*
-
-</div>
+- [DGit macOS](https://github.com/3pxTeam/DGIT-MAC) - 네이티브 macOS GUI 애플리케이션
+- [3pxTeam](https://github.com/3pxTeam) - 조직 메인 페이지
